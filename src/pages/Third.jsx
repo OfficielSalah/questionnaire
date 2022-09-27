@@ -18,6 +18,7 @@ import {
   RadioGroup,
   IconButton,
   FormControlLabel,
+  InputLabel,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -192,9 +193,9 @@ export default function Third() {
                     onChange={handlePage}
                   />
                 </Stack>
-                <strong>{val.title}</strong>
+                <h2>{val.title}</h2>
                 <p>{val.question}</p>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} style={{ boxShadow: "none" }}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
@@ -203,7 +204,10 @@ export default function Third() {
                             fontWeight: "bold",
                             width: "14%",
                             border: "none",
+                            padding: "0",
+                            paddingBottom: "2rem",
                           }}
+                          align="center"
                         >
                           Nombre Empleado
                         </TableCell>
@@ -253,6 +257,9 @@ export default function Third() {
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="center">
                           <FormControl>
+                            <InputLabel htmlFor={"outlined-basic"}>
+                              name
+                            </InputLabel>
                             <Input
                               id={"outlined-basic"}
                               type="text"
@@ -270,11 +277,15 @@ export default function Third() {
                               style={{ border: "none", padding: "0rem" }}
                               key={key4}
                             >
-                              <FormControl>
+                              <FormControl style={{ width: "100%" }}>
                                 <RadioGroup
                                   row
                                   aria-labelledby="demo-row-radio-buttons-group-label"
                                   name="row-radio-buttons-group"
+                                  style={{
+                                    flexWrap: "nowrap",
+                                    justifyContent: "space-around",
+                                  }}
                                 >
                                   {val.data.map((val, key5) => {
                                     return (
@@ -293,7 +304,7 @@ export default function Third() {
                                           />
                                         }
                                         key={key5}
-                                        style={{ margin: "1rem" }}
+                                        style={{ margin: "0" }}
                                       />
                                     );
                                   })}

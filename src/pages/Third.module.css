@@ -12,7 +12,7 @@ body {
 .box {
   position: relative;
   max-width: 1400px;
-  height: 155rem;
+  height: 180rem;
   width: 95%;
   background: white;
   margin-top: 2rem;
@@ -34,7 +34,7 @@ body {
   font-weight: 500;
 }
 .top {
-  padding-top: 1rem;
+  margin-top: 3rem;
   line-height: 2rem;
 }
 

@@ -1,0 +1,64 @@
+.screen {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d5d8d6;
+}
+.box {
+  position: relative;
+  max-width: 1020px;
+  height: 480px;
+  width: 80%;
+  background: white;
+  margin-top: -5%;
+}
+.inner_box {
+  position: absolute;
+  width: calc(100% - 4.1rem);
+  height: calc(100% - 4.1rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.inner_box p {
+  font-size: large;
+}
+.red {
+  color: red;
+  font-style: italic;
+  font-weight: 500;
+}
+.top {
+  padding-top: 1rem;
+  line-height: 2rem;
+}
+
+.bullets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6rem;
+}
+
+.bullets > span {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #aaa;
+  margin: 0 0.25rem;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.bullets span.active {
+  width: 1.1rem;
+  background-color: #cfaa30;
+  border-radius: 1rem;
+}
+.next {
+  position: absolute;
+  right: 2%;
+  top: 90.2%;
+}

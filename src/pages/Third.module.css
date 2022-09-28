@@ -49,11 +49,9 @@ body {
   border-radius: 1rem;
 }
 .next {
-  position: absolute;
-  right: 10%;
-  bottom: 0%;
+  margin-left: 85%;
+  margin-top: -2.5rem;
 }
-
 .check {
   display: flex;
   align-items: center;

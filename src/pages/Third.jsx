@@ -117,26 +117,21 @@ export default function Third() {
   const checkquestions = () => {
     let fail = false;
     for (let question of questions) {
-      for (let field of question.general) {
-        if (
-          field.name.length === 0 ||
-          field.frecuency.length === 0 ||
-          field.agility.length === 0 ||
-          field.quality.length === 0 ||
-          field.closeness.length === 0
-        ) {
-          fail = true;
-          break;
-        }
-      }
-      if (fail === true) {
+      if (
+        question.general[0].name.length === 0 ||
+        question.general[0].frecuency.length === 0 ||
+        question.general[0].agility.length === 0 ||
+        question.general[0].quality.length === 0 ||
+        question.general[0].closeness.length === 0
+      ) {
+        fail = true;
         break;
       }
     }
-    if (fail === false) {
-      setChecked(true);
-    } else {
+    if (fail === true) {
       setChecked(false);
+    } else {
+      setChecked(true);
     }
   };
 

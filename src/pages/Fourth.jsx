@@ -155,9 +155,8 @@ export default function Fourth() {
                                   border: "none",
                                 }}
                                 sx={{
-                                  width: "25%",
-                                  lineHeight: "1rem",
-                                  padding: "0.2rem",
+                                  width: "29.8%",
+                                  padding: "0.3rem",
                                   border: "none",
                                 }}
                               >

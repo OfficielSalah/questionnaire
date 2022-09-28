@@ -182,11 +182,11 @@ export default function Third() {
     setQuestions(tmp);
   };
 
-  const handledelete = (key, index) => {
+  const handledelete = (key) => {
     let tmp = questions.map((item, i) => {
       if (key === i) {
         let ymp = [...item.general];
-        ymp.splice(index, 1);
+        ymp.splice(ymp.length - 1, 1);
         return { ...item, general: ymp };
       } else {
         return item;
@@ -356,24 +356,6 @@ export default function Third() {
                                       })}
                                     </RadioGroup>
                                   </FormControl>
-                                  {questions[key1].general.length > 4 &&
-                                    info.length - 1 === key4 && (
-                                      <Button
-                                        variant="contained"
-                                        startIcon={<DeleteIcon />}
-                                        color="error"
-                                        style={{
-                                          position: "absolute",
-                                          padding: "0.3rem",
-                                          paddingRight: "0",
-                                          paddingLeft: "0.9rem",
-                                          left: "99.5%",
-                                        }}
-                                        onClick={() => {
-                                          handledelete(key1, index);
-                                        }}
-                                      ></Button>
-                                    )}
                                 </TableCell>
                               );
                             })}
@@ -397,6 +379,22 @@ export default function Third() {
                     }}
                   >
                     Agregar
+                  </Button>
+                )}
+                {questions[key1].general.length > 4 && (
+                  <Button
+                    variant="contained"
+                    startIcon={<DeleteIcon />}
+                    color="error"
+                    style={{
+                      marginLeft: "3rem",
+                      marginTop: "2rem",
+                    }}
+                    onClick={() => {
+                      handledelete(key1);
+                    }}
+                  >
+                    Delete
                   </Button>
                 )}
               </div>

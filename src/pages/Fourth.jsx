@@ -206,7 +206,7 @@ export default function Fourth() {
                               padding: "0rem",
                               borderRight:
                                 key4 !== info.length - 1
-                                  ? "1px solid black"
+                                  ? "1px solid orange"
                                   : "none",
                             }}
                             key={key4}

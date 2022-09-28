@@ -303,7 +303,7 @@ export default function Third() {
                                     border: "none",
                                     borderRight:
                                       key4 !== info.length - 1
-                                        ? "1px solid black"
+                                        ? "1px solid orange"
                                         : "none",
                                     padding: "0rem",
                                   }}

@@ -94,10 +94,11 @@ export default function Fourth() {
     e.preventDefault();
     let data = makeData();
     try {
-      const response = await axios.post("/api/test", { data: data });
+      //const response = await axios.post("/api/test", { data: data });
     } catch (error) {
       console.log(error);
     }
+    console.log(JSON.stringify(data, null, 4));
     navigate("/fifth");
   };
 
@@ -183,6 +184,7 @@ export default function Fourth() {
                             value={connexion.options[key3].conexionType}
                             onChange={handledata(key3)}
                           >
+                            <MenuItem value="">None</MenuItem>
                             <MenuItem value="General">General</MenuItem>
                             <MenuItem value="Información">Información</MenuItem>
                             <MenuItem value="Inspiracional">

@@ -19,8 +19,10 @@ import {
   IconButton,
   FormControlLabel,
   InputLabel,
+  Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
 
 const data = [
   {
@@ -141,16 +143,35 @@ export default function Third() {
     checkquestions();
   }, [questions]);
 
-  const handledata = (key) => (event) => {
+  const handledata = (key, row) => (event) => {
     let prop = event.target.name;
     let tmp = questions.map((item, i) => {
       if (key === i) {
         let ymp = item.general.map((val, y) => {
-          if (y === 0) {
+          if (y === row) {
             return { ...val, [prop]: event.target.value };
           } else {
             return val;
           }
+        });
+        return { ...item, general: ymp };
+      } else {
+        return item;
+      }
+    });
+    setQuestions(tmp);
+  };
+
+  const handleadd = (key) => {
+    let tmp = questions.map((item, i) => {
+      if (key === i) {
+        let ymp = [...item.general];
+        ymp.push({
+          name: "",
+          frecuency: "",
+          agility: "",
+          quality: "",
+          closeness: "",
         });
         return { ...item, general: ymp };
       } else {
@@ -254,69 +275,91 @@ export default function Third() {
                     </TableHead>
 
                     <TableBody>
-                      <TableRow>
-                        <TableCell style={{ border: "none" }} align="center">
-                          <FormControl>
-                            <InputLabel htmlFor={"outlined-basic"}>
-                              name
-                            </InputLabel>
-                            <Input
-                              id={"outlined-basic"}
-                              type="text"
-                              name="name"
-                              value={questions[key1].general[0].name}
-                              onChange={handledata(key1)}
-                            />
-                          </FormControl>
-                        </TableCell>
-
-                        {info.map((val, key4) => {
-                          return (
+                      {questions[key1].general.map((row, index) => {
+                        return (
+                          <TableRow key={index}>
                             <TableCell
+                              style={{ border: "none" }}
                               align="center"
-                              style={{ border: "none", padding: "0rem" }}
-                              key={key4}
                             >
-                              <FormControl style={{ width: "100%" }}>
-                                <RadioGroup
-                                  row
-                                  aria-labelledby="demo-row-radio-buttons-group-label"
-                                  name="row-radio-buttons-group"
-                                  style={{
-                                    flexWrap: "nowrap",
-                                    justifyContent: "space-around",
-                                  }}
-                                >
-                                  {val.data.map((val, key5) => {
-                                    return (
-                                      <FormControlLabel
-                                        name={name[key4]}
-                                        value={val}
-                                        onChange={handledata(key1)}
-                                        control={
-                                          <Radio
-                                            color="warning"
-                                            sx={{
-                                              "& .MuiSvgIcon-root": {
-                                                fontSize: 16,
-                                              },
-                                            }}
-                                          />
-                                        }
-                                        key={key5}
-                                        style={{ margin: "0" }}
-                                      />
-                                    );
-                                  })}
-                                </RadioGroup>
+                              <FormControl>
+                                <InputLabel htmlFor={"outlined-basic"}>
+                                  name
+                                </InputLabel>
+                                <Input
+                                  id={"outlined-basic"}
+                                  type="text"
+                                  name="name"
+                                  value={questions[key1].general[index].name}
+                                  onChange={handledata(key1, index)}
+                                />
                               </FormControl>
                             </TableCell>
-                          );
-                        })}
-                      </TableRow>
+                            {info.map((val, key4) => {
+                              return (
+                                <TableCell
+                                  align="center"
+                                  style={{ border: "none", padding: "0rem" }}
+                                  key={key4}
+                                >
+                                  <FormControl style={{ width: "100%" }}>
+                                    <RadioGroup
+                                      row
+                                      aria-labelledby="demo-row-radio-buttons-group-label"
+                                      name="row-radio-buttons-group"
+                                      style={{
+                                        flexWrap: "nowrap",
+                                        justifyContent: "space-around",
+                                      }}
+                                    >
+                                      {val.data.map((val, key5) => {
+                                        return (
+                                          <FormControlLabel
+                                            name={name[key4]}
+                                            value={val}
+                                            onChange={handledata(key1, index)}
+                                            control={
+                                              <Radio
+                                                color="warning"
+                                                sx={{
+                                                  "& .MuiSvgIcon-root": {
+                                                    fontSize: 16,
+                                                  },
+                                                }}
+                                              />
+                                            }
+                                            key={key5}
+                                            style={{ margin: "0" }}
+                                          />
+                                        );
+                                      })}
+                                    </RadioGroup>
+                                  </FormControl>
+                                </TableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 </TableContainer>
+                {questions[key1].general.length < 10 && (
+                  <Button
+                    variant="contained"
+                    startIcon={<AddIcon />}
+                    style={{
+                      marginLeft: "1.5rem",
+                      marginTop: "2rem",
+                    }}
+                    color="warning"
+                    onClick={() => {
+                      handleadd(key1);
+                    }}
+                  >
+                    Agregar
+                  </Button>
+                )}
               </div>
             );
           })}

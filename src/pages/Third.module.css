@@ -3,7 +3,8 @@ body {
 }
 .screen {
   width: 100%;
-  min-height: 100vh;
+  min-height: 200rem;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,10 +13,10 @@ body {
 .box {
   position: relative;
   max-width: 1400px;
-  height: 220rem;
+  min-height: inherit;
   width: 95%;
   background: white;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 .inner_box {
   position: absolute;
@@ -34,7 +35,7 @@ body {
   font-weight: 500;
 }
 .top {
-  margin-top: 3rem;
+  margin-top: 1rem;
   line-height: 2rem;
 }
 
@@ -63,7 +64,7 @@ body {
 .next {
   position: absolute;
   right: 10%;
-  bottom: 1%;
+  bottom: 0%;
 }
 
 .check {

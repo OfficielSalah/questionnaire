@@ -201,7 +201,14 @@ export default function Fourth() {
                         return (
                           <TableCell
                             align="center"
-                            style={{ border: "none", padding: "0rem" }}
+                            style={{
+                              border: "none",
+                              padding: "0rem",
+                              borderRight:
+                                key4 !== info.length - 1
+                                  ? "1px solid black"
+                                  : "none",
+                            }}
                             key={key4}
                           >
                             <FormControl sx={{ width: "100%" }}>

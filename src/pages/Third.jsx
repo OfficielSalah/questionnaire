@@ -279,7 +279,7 @@ export default function Third() {
                         return (
                           <TableRow key={index}>
                             <TableCell
-                              style={{ border: "none" }}
+                              style={{ border: "none", padding: "0.2rem" }}
                               align="center"
                             >
                               <FormControl>
@@ -299,7 +299,14 @@ export default function Third() {
                               return (
                                 <TableCell
                                   align="center"
-                                  style={{ border: "none", padding: "0rem" }}
+                                  style={{
+                                    border: "none",
+                                    borderRight:
+                                      key4 !== info.length - 1
+                                        ? "1px solid black"
+                                        : "none",
+                                    padding: "0rem",
+                                  }}
                                   key={key4}
                                 >
                                   <FormControl style={{ width: "100%" }}>

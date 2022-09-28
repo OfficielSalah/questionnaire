@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const data = [
   {
@@ -99,7 +100,7 @@ export default function Third() {
   const [questions, setQuestions] = useState(
     Array(data.length).fill({
       questionId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      general: Array(1).fill({
+      general: Array(4).fill({
         name: "",
         frecuency: "",
         agility: "",
@@ -173,6 +174,19 @@ export default function Third() {
           quality: "",
           closeness: "",
         });
+        return { ...item, general: ymp };
+      } else {
+        return item;
+      }
+    });
+    setQuestions(tmp);
+  };
+
+  const handledelete = (key, index) => {
+    let tmp = questions.map((item, i) => {
+      if (key === i) {
+        let ymp = [...item.general];
+        ymp.splice(index, 1);
         return { ...item, general: ymp };
       } else {
         return item;
@@ -342,6 +356,24 @@ export default function Third() {
                                       })}
                                     </RadioGroup>
                                   </FormControl>
+                                  {questions[key1].general.length > 4 &&
+                                    info.length - 1 === key4 && (
+                                      <Button
+                                        variant="contained"
+                                        startIcon={<DeleteIcon />}
+                                        color="error"
+                                        style={{
+                                          position: "absolute",
+                                          padding: "0.3rem",
+                                          paddingRight: "0",
+                                          paddingLeft: "0.9rem",
+                                          left: "99.5%",
+                                        }}
+                                        onClick={() => {
+                                          handledelete(key1, index);
+                                        }}
+                                      ></Button>
+                                    )}
                                 </TableCell>
                               );
                             })}

@@ -8,9 +8,14 @@ import Logo from "../assets/logo.png";
 export default function MenuAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="warning">
-        <Toolbar sx={{ textAlign: "center" }}>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <AppBar position="static" style={{ backgroundColor: "black" }}>
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, marginLeft: "11%" }}
+            align="center"
+          >
             Organizational Network Analysis
           </Typography>
           <Box
@@ -18,6 +23,7 @@ export default function MenuAppBar() {
             sx={{
               height: 64,
               justifyContent: "right",
+              backgroundColor: "white",
             }}
             alt="Your logo."
             src={Logo}

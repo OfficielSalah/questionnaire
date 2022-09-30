@@ -205,7 +205,7 @@ export default function Fourth() {
                               padding: "0rem",
                               borderRight:
                                 key4 !== info.length - 1
-                                  ? "1px solid orange"
+                                  ? "2px solid #00B0F0"
                                   : "none",
                             }}
                             key={key4}
@@ -229,7 +229,7 @@ export default function Fourth() {
                                       style={{ margin: "0" }}
                                       control={
                                         <Radio
-                                          color="warning"
+                                          color="primary"
                                           sx={{
                                             "& .MuiSvgIcon-root": {
                                               fontSize: 16,

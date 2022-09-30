@@ -7,11 +7,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4rem;
+  padding-bottom: 1rem;
 }
-
+.box {
+  background-color: rgb(224, 220, 220);
+}
 .inner_box {
-  margin: 0 2rem;
+  background-color: white;
+  margin: 2rem;
+  padding: 1rem;
 }
 .inner_box p {
   font-size: large;
@@ -22,8 +26,8 @@ body {
   font-weight: 500;
 }
 .top {
-  margin-top: 1rem;
-  line-height: 2rem;
+  margin-top: 2rem;
+  line-height: 1rem;
 }
 
 .bullets {
@@ -45,7 +49,7 @@ body {
 
 .bullets span.active {
   width: 1.1rem;
-  background-color: #cfaa30;
+  background-color: #00b0f0;
   border-radius: 1rem;
 }
 .next {
@@ -62,4 +66,13 @@ body {
 }
 .disabled {
   display: none;
+}
+.pagination ul li button {
+  color: white;
+  background-color: rgb(199, 199, 199);
+  border-width: 2px;
+}
+.pagination {
+  margin: 0 auto;
+  margin-bottom: 1rem;
 }

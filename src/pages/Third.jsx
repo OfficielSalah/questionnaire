@@ -217,10 +217,10 @@ export default function Third() {
                     count={data ? data.length : 1}
                     hidePrevButton
                     hideNextButton
+                    className={styles.pagination}
                     size="large"
-                    style={{ margin: "0 auto", marginBottom: "1rem" }}
-                    color="warning"
                     onChange={handlePage}
+                    color="primary"
                   />
                 </Stack>
                 <h2>{val.title}</h2>
@@ -312,7 +312,7 @@ export default function Third() {
                                     border: "none",
                                     borderRight:
                                       key4 !== info.length - 1
-                                        ? "1px solid orange"
+                                        ? "2px solid #00B0F0"
                                         : "none",
                                     padding: "0rem",
                                   }}
@@ -336,7 +336,7 @@ export default function Third() {
                                             onChange={handledata(key1, index)}
                                             control={
                                               <Radio
-                                                color="warning"
+                                                color="primary"
                                                 sx={{
                                                   "& .MuiSvgIcon-root": {
                                                     fontSize: 16,
@@ -362,13 +362,15 @@ export default function Third() {
                 </TableContainer>
                 {questions[key1].general.length < 10 && (
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     startIcon={<AddIcon />}
                     style={{
                       marginLeft: "1.5rem",
                       marginTop: "2rem",
+                      color: "#00b0f0",
+                      border: "none",
+                      fontWeight: "bold",
                     }}
-                    color="warning"
                     onClick={() => {
                       handleadd(key1);
                     }}

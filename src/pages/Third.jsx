@@ -24,6 +24,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const data = [
   {
@@ -109,6 +110,14 @@ export default function Third() {
       }),
     })
   );
+
+  const theme = createTheme({
+    palette: {
+      blue: {
+        main: "#00b0f0",
+      },
+    },
+  });
 
   const click = () => {
     navigate("/fourth", { state: questions });
@@ -212,16 +221,18 @@ export default function Third() {
             return (
               <div key={key1} ref={addtopaginationRefs} className={styles.top}>
                 <Stack id={key1}>
-                  <Pagination
-                    defaultPage={key1 + 1}
-                    count={data ? data.length : 1}
-                    hidePrevButton
-                    hideNextButton
-                    className={styles.pagination}
-                    size="large"
-                    onChange={handlePage}
-                    color="primary"
-                  />
+                  <ThemeProvider theme={theme}>
+                    <Pagination
+                      defaultPage={key1 + 1}
+                      count={data ? data.length : 1}
+                      hidePrevButton
+                      hideNextButton
+                      className={styles.pagination}
+                      size="large"
+                      onChange={handlePage}
+                      color="blue"
+                    />
+                  </ThemeProvider>
                 </Stack>
                 <h2>{val.title}</h2>
                 <p>{val.question}</p>

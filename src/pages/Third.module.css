@@ -70,7 +70,11 @@ body {
 .pagination ul li button {
   color: white;
   background-color: rgb(199, 199, 199);
-  border-width: 2px;
+}
+.pagination ul li button:hover {
+  color: #00b0f0;
+  background-color: rgb(199, 199, 199);
+  font-weight: bold;
 }
 .pagination {
   margin: 0 auto;

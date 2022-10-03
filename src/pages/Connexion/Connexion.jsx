@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Fourth.module.css";
-import IconButton from "@mui/material/IconButton";
+//import axios from "axios";
+import styles from "./Connexion.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -18,8 +18,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  IconButton,
 } from "@mui/material";
-import axios from "axios";
 
 const info = [
   { title: "Valor", data: ["Valor Agregado", "Bajo Valor Agregado"] },
@@ -35,18 +35,39 @@ const info = [
 ];
 const name = ["value", "frecuency"];
 const arr = [1, 2, 3, 4];
-export default function Fourth() {
+export default function Connexion() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [checked, setChecked] = useState(false);
   const [connexion, setConnexion] = useState({
     questionId: "3fa85f64-5717-4963f66afa6",
-    options: Array(arr.length).fill({
+    options: Array(4).fill({
       conexionType: "",
       value: "",
       frecuency: "",
     }),
   });
+
+  const makeData = () => {
+    let tmp = [];
+    for (let item of connexion.options) {
+      if (
+        item.conexionType.length !== 0 &&
+        item.value.length !== 0 &&
+        item.frecuency.length !== 0
+      ) {
+        tmp.push(item);
+      }
+    }
+    let data = {
+      personId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      companyId: 0,
+      surveyId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      questions: state,
+      connexion: { ...connexion, options: tmp },
+    };
+    return data;
+  };
 
   const checkconnexion = () => {
     let success = false;
@@ -79,17 +100,6 @@ export default function Fourth() {
     setConnexion({ ...connexion, options: tmp });
   };
 
-  const makeData = () => {
-    let data = {
-      personId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      companyId: 0,
-      surveyId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      questions: state,
-      connexion: connexion,
-    };
-    return data;
-  };
-
   const submitHandler = async (e) => {
     e.preventDefault();
     let data = makeData();
@@ -99,7 +109,7 @@ export default function Fourth() {
       console.log(error);
     }
     console.log(JSON.stringify(data, null, 4));
-    navigate("/fifth");
+    navigate("/thanks");
   };
 
   useEffect(() => {
@@ -259,15 +269,17 @@ export default function Fourth() {
             <span className={styles.active}></span>
           </div>
 
-          {checked && (
-            <form className={styles.next} onSubmit={submitHandler}>
-              <IconButton type="submit" aria-label="next" color="info">
-                <ArrowCircleRightOutlinedIcon
-                  style={{ fontSize: 50, color: "black" }}
-                />
-              </IconButton>
-            </form>
-          )}
+          <div className={styles.move}>
+            {checked && (
+              <form className={styles.next} onSubmit={submitHandler}>
+                <IconButton type="submit" aria-label="next" color="info">
+                  <ArrowCircleRightOutlinedIcon
+                    style={{ fontSize: 50, color: "black" }}
+                  />
+                </IconButton>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </div>

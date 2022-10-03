@@ -1,26 +1,19 @@
 .screen {
   width: 100%;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #d5d8d6;
+  background-color: rgb(224, 220, 220);
 }
 .box {
-  position: relative;
-  max-width: 1020px;
-  height: 480px;
-  width: 80%;
-  background: white;
-  margin-top: -5%;
+  margin: 8vh 5vw;
+  background-color: rgb(224, 220, 220);
+  padding-bottom: 1rem;
 }
 .inner_box {
-  position: absolute;
-  width: calc(100% - 4.1rem);
-  height: calc(100% - 4.1rem);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  background-color: white;
+  margin: 2rem;
+  padding: 1rem;
 }
 .inner_box p {
   font-size: large;
@@ -31,7 +24,7 @@
   font-weight: 500;
 }
 .top {
-  padding-top: 5rem;
+  padding-top: 1rem;
   line-height: 2rem;
 }
 
@@ -39,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 6rem;
+  margin-top: 10rem;
 }
 
 .bullets > span {
@@ -57,8 +50,6 @@
   background-color: #00b0f0;
   border-radius: 1rem;
 }
-.next {
-  position: absolute;
-  right: 2%;
-  top: 90.2%;
+.next button {
+  margin-left: 75vw;
 }

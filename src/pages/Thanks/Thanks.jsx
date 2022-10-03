@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Fifth.module.css";
+import styles from "./Thanks.module.css";
 
-export default function Fifth() {
+export default function Thanks() {
   return (
     <div className={styles.screen}>
       <div className={styles.box}>

@@ -1,0 +1,24 @@
+.inner_box {
+  margin-top: 0.2rem;
+  padding: 0.5rem;
+}
+.card {
+  margin: 0.8rem;
+}
+.input {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+.option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

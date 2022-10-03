@@ -1,16 +1,12 @@
-body {
-  overflow-y: scroll;
-  background-color: white;
-}
 .screen {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 1rem;
 }
 .box {
   background-color: rgb(224, 220, 220);
+  padding-bottom: 1rem;
 }
 .inner_box {
   background-color: white;
@@ -26,8 +22,8 @@ body {
   font-weight: 500;
 }
 .top {
-  margin-top: 2rem;
-  line-height: 1rem;
+  padding-top: 1rem;
+  line-height: 2rem;
 }
 
 .bullets {
@@ -52,31 +48,8 @@ body {
   background-color: #00b0f0;
   border-radius: 1rem;
 }
-.next {
-  margin-left: 85%;
-  margin-top: -2.5rem;
-}
-.check {
+.move {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 0.8rem;
-  width: 80%;
-  margin: 0 auto;
-}
-.disabled {
-  display: none;
-}
-.pagination ul li button {
-  color: white;
-  background-color: rgb(199, 199, 199);
-}
-.pagination ul li button:hover {
-  color: #00b0f0;
-  background-color: rgb(199, 199, 199);
-  font-weight: bold;
-}
-.pagination {
-  margin: 0 auto;
-  margin-bottom: 1rem;
+  justify-content: right;
+  flex-wrap: nowrap;
 }

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import styles from "./Second.module.css";
+import styles from "./Policy.module.css";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import Checkbox from "@mui/material/Checkbox";
 import { useNavigate } from "react-router-dom";
 
-export default function Second() {
+export default function Policy() {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
-  const click = () => {
-    navigate("/third");
+  const next = () => {
+    navigate("/questions");
   };
   const previous = () => {
     navigate("/");
@@ -61,21 +61,20 @@ export default function Second() {
             <span></span>
             <span></span>
           </div>
-          <div className={styles.next}>
-            {checked && (
-              <IconButton aria-label="next" color="info" onClick={click}>
-                <ArrowCircleRightOutlinedIcon
-                  style={{ fontSize: 50, color: "black" }}
-                />
-              </IconButton>
-            )}
-          </div>
-          <div className={styles.previous}>
+          <div className={styles.move}>
             <IconButton aria-label="previous" color="info" onClick={previous}>
               <ArrowCircleLeftOutlinedIcon
                 style={{ fontSize: 50, color: "black" }}
               />
             </IconButton>
+
+            {checked && (
+              <IconButton aria-label="next" color="info" onClick={next}>
+                <ArrowCircleRightOutlinedIcon
+                  style={{ fontSize: 50, color: "black" }}
+                />
+              </IconButton>
+            )}
           </div>
         </div>
       </div>

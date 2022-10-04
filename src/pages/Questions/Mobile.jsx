@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./Mobile.module.css";
 import {
   Card,
@@ -222,10 +222,6 @@ export default function Mobile() {
     navigate("/connexion", { state: questions });
   };
 
-  useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-
   return (
     <ThemeProvider theme={theme}>
       <div className={styles.inner_box}>
@@ -265,9 +261,7 @@ export default function Mobile() {
                     <Accordion key={index}>
                       <AccordionSummary
                         expandIcon={
-                          <ArrowDropDownCircleIcon
-                            style={{ color: "black", marginLeft: "2rem" }}
-                          />
+                          <ArrowDropDownCircleIcon style={{ color: "black" }} />
                         }
                         aria-controls={index}
                         id={index}
@@ -285,7 +279,7 @@ export default function Mobile() {
                             isOptionEqualToValue={(option, value) =>
                               option.id === value.id
                             }
-                            style={{ width: "45%" }}
+                            style={{ width: "45%", marginRight: "1.8rem" }}
                             noOptionsText={"No Employe Found"}
                             renderInput={(params) => (
                               <TextField {...params} label="Name" />
@@ -298,23 +292,26 @@ export default function Mobile() {
                           {info.map((val, key) => {
                             return (
                               <div key={key} className={styles.option}>
-                                <div style={{ width: "45%" }}>{val.title}</div>
+                                <div>{val.title}</div>
                                 <FormControl>
                                   <RadioGroup
                                     row
                                     aria-labelledby="demo-row-radio-buttons-group-label"
                                     name="row-radio-buttons-group"
+                                    onChange={handledata(activeStep, index)}
+                                    value={
+                                      questions[activeStep].general[index][
+                                        name[key]
+                                      ]
+                                    }
                                   >
                                     {val.data.map((value, key5) => {
                                       return (
                                         <FormControlLabel
                                           label={value}
+                                          style={{ fontSize: "1rem" }}
                                           name={name[key]}
                                           value={value}
-                                          onChange={handledata(
-                                            activeStep,
-                                            index
-                                          )}
                                           control={
                                             <Radio
                                               color="blue"

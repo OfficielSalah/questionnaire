@@ -378,13 +378,16 @@ export default function Desktop() {
                                     flexWrap: "nowrap",
                                     justifyContent: "space-around",
                                   }}
+                                  onChange={handledata(key1, index)}
+                                  value={
+                                    questions[key1].general[index][name[key4]]
+                                  }
                                 >
                                   {val.data.map((val, key5) => {
                                     return (
                                       <FormControlLabel
                                         name={name[key4]}
                                         value={val}
-                                        onChange={handledata(key1, index)}
                                         control={
                                           <Radio
                                             color="primary"

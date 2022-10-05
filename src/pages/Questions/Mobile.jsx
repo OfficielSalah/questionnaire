@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Mobile.module.css";
 import {
   Card,
@@ -19,10 +19,10 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 
 const data = [
   {
@@ -56,6 +56,14 @@ const data = [
       "6. Cuándo te necesitan o te contactan, ¿generalmente que personas son y que tipo de interacción es?",
   },
 ];
+
+const config = {
+  headers: {
+    "Content-type": "application/json",
+  },
+};
+
+const name = ["frecuency", "agility", "quality", "closeness"];
 
 const info = [
   {
@@ -93,27 +101,26 @@ const info = [
   },
 ];
 
-const name = ["frecuency", "agility", "quality", "closeness"];
-
-const employe = ["one", "two", "three", "four"];
-
-export default function Mobile() {
-  const navigate = useNavigate();
+export default function Mobile(props) {
   const [activeStep, setActiveStep] = useState(0);
-
   const [skipped, setSkipped] = useState(new Set());
-  const [questions, setQuestions] = useState(
-    Array(data.length).fill({
-      questionId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      general: Array(4).fill({
-        name: "",
-        frecuency: "",
-        agility: "",
-        quality: "",
-        closeness: "",
-      }),
-    })
-  );
+  const [employe, setEmploye] = useState([]);
+
+  const getemploye = async () => {
+    await axios
+      .create({
+        baseURL:
+          "https://dynamicliveconversationapi.azurewebsites.net/api/ONasSurvey/EmpleadosSurveyOnas/",
+      })
+      .get("1/5f244111-b80a-421a-b11d-ea59e8156fde/ale", config)
+      .then((res) => {
+        let filter = [];
+        res.data.map((val, key) => {
+          filter.push(val.names);
+        });
+        setEmploye(filter);
+      });
+  };
 
   const theme = createTheme({
     palette: {
@@ -123,86 +130,17 @@ export default function Mobile() {
     },
   });
 
-  const handledata = (key, row) => (event) => {
-    let prop = event.target.name;
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = item.general.map((val, y) => {
-          if (y === row) {
-            return { ...val, [prop]: event.target.value };
-          } else {
-            return val;
-          }
-        });
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
-  const handledelete = (key) => {
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = [...item.general];
-        ymp.splice(ymp.length - 1, 1);
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
-
-  const handleadd = (key) => {
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = [...item.general];
-        ymp.push({
-          name: "",
-          frecuency: "",
-          agility: "",
-          quality: "",
-          closeness: "",
-        });
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
-
-  const handleselect = (key, index, value) => {
-    let prop = "name";
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = item.general.map((val, y) => {
-          if (y === index) {
-            return { ...val, [prop]: value !== null ? value : "" };
-          } else {
-            return val;
-          }
-        });
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
-
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
 
   const handleNext = (key) => {
     if (
-      questions[key].general[0].name.length !== 0 &&
-      questions[key].general[0].frecuency.length !== 0 &&
-      questions[key].general[0].agility.length !== 0 &&
-      questions[key].general[0].quality.length !== 0 &&
-      questions[key].general[0].closeness.length !== 0
+      props.questions[key].general[0].name.length !== 0 &&
+      props.questions[key].general[0].frecuency.length !== 0 &&
+      props.questions[key].general[0].agility.length !== 0 &&
+      props.questions[key].general[0].quality.length !== 0 &&
+      props.questions[key].general[0].closeness.length !== 0
     ) {
       let newSkipped = skipped;
       if (isStepSkipped(activeStep)) {
@@ -218,9 +156,11 @@ export default function Mobile() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleFinish = () => {
-    navigate("/connexion", { state: questions });
-  };
+  useEffect(() => {
+    /*if (employe.length === 0) {
+      getemploye();
+    }*/
+  }, [props.questions]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -239,29 +179,43 @@ export default function Mobile() {
           })}
         </Stepper>
         {activeStep === data.length ? (
-          <Button
-            variant="contained"
-            color="blue"
+          <div
             style={{
-              color: "white",
-              margin: "10rem 36%",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "8rem",
             }}
-            onClick={handleFinish}
           >
-            Finish
-          </Button>
+            <Button
+              variant="contained"
+              color="blue"
+              style={{
+                color: "white",
+              }}
+              onClick={props.Next}
+            >
+              Move To Connexion Question
+            </Button>
+          </div>
         ) : (
           <div>
             <Card className={styles.card}>
-              <CardContent style={{ padding: "0 2rem 0 2rem" }}>
+              <CardContent
+                style={{
+                  padding: "0 2rem 0 2rem",
+                  marginBottom: "1.5rem",
+                }}
+              >
                 <h3 style={{ fontWeight: "bold" }}>{data[activeStep].title}</h3>
                 <p>{data[activeStep].question}</p>
-                {questions[activeStep].general.map((row, index) => {
+                {props.questions[activeStep].general.map((row, index) => {
                   return (
                     <Accordion key={index}>
                       <AccordionSummary
                         expandIcon={
-                          <ArrowDropDownCircleIcon style={{ color: "black" }} />
+                          <ArrowDropDownCircleIcon
+                            style={{ color: "#00b0f0" }}
+                          />
                         }
                         aria-controls={index}
                         id={index}
@@ -272,9 +226,11 @@ export default function Mobile() {
                             id="combo-box-demo"
                             options={employe}
                             clearOnEscape
-                            value={questions[activeStep].general[index].name}
+                            value={
+                              props.questions[activeStep].general[index].name
+                            }
                             onChange={(event, value) => {
-                              handleselect(activeStep, index, value);
+                              props.handleSelect(activeStep, index, value);
                             }}
                             isOptionEqualToValue={(option, value) =>
                               option.id === value.id
@@ -292,26 +248,34 @@ export default function Mobile() {
                           {info.map((val, key) => {
                             return (
                               <div key={key} className={styles.option}>
-                                <div>{val.title}</div>
+                                <div className={styles.title}>{val.title}</div>
                                 <FormControl>
                                   <RadioGroup
                                     row
                                     aria-labelledby="demo-row-radio-buttons-group-label"
                                     name="row-radio-buttons-group"
-                                    onChange={handledata(activeStep, index)}
+                                    onChange={props.handleData(
+                                      activeStep,
+                                      index
+                                    )}
                                     value={
-                                      questions[activeStep].general[index][
-                                        name[key]
-                                      ]
+                                      props.questions[activeStep].general[
+                                        index
+                                      ][name[key]]
                                     }
+                                    sx={{
+                                      justifyContent: "flex-start",
+                                      columnGap: "1rem",
+                                      width: "100%",
+                                    }}
                                   >
                                     {val.data.map((value, key5) => {
                                       return (
                                         <FormControlLabel
                                           label={value}
-                                          style={{ fontSize: "1rem" }}
                                           name={name[key]}
                                           value={value}
+                                          className={styles.text}
                                           control={
                                             <Radio
                                               color="blue"
@@ -342,7 +306,7 @@ export default function Mobile() {
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                padding: 1,
+                padding: 2,
                 justifyContent: "space-around",
               }}
             >
@@ -354,7 +318,7 @@ export default function Mobile() {
               >
                 Previous Question
               </Button>
-              {questions[activeStep].general.length < 10 && (
+              {props.questions[activeStep].general.length < 10 && (
                 <Button
                   variant="contained"
                   startIcon={<AddIcon />}
@@ -363,20 +327,20 @@ export default function Mobile() {
                     backgroundColor: "green",
                   }}
                   onClick={() => {
-                    handleadd(activeStep);
+                    props.handleAdd(activeStep);
                   }}
                 >
                   Agregar
                 </Button>
               )}
 
-              {questions[activeStep].general.length > 4 && (
+              {props.questions[activeStep].general.length > 4 && (
                 <Button
                   variant="contained"
                   startIcon={<DeleteIcon />}
                   color="error"
                   onClick={() => {
-                    handledelete(activeStep);
+                    props.handleDelete(activeStep);
                   }}
                 >
                   Delete

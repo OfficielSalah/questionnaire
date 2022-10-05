@@ -21,10 +21,10 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 const data = [
   {
@@ -95,24 +95,33 @@ const info = [
     ],
   },
 ];
-const employe = ["one", "two", "three", "four"];
-export default function Desktop() {
-  const navigate = useNavigate();
+
+const config = {
+  headers: {
+    "Content-type": "application/json",
+  },
+};
+
+export default function Desktop(props) {
   const [checked, setChecked] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [questions, setQuestions] = useState(
-    Array(data.length).fill({
-      questionId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      general: Array(4).fill({
-        name: "",
-        frecuency: "",
-        agility: "",
-        quality: "",
-        closeness: "",
-      }),
-    })
-  );
+  const [employe, setEmploye] = useState([]);
   const paginationRefs = useRef([]);
+
+  const getemploye = async () => {
+    await axios
+      .create({
+        baseURL:
+          "https://dynamicliveconversationapi.azurewebsites.net/api/ONasSurvey/EmpleadosSurveyOnas/",
+      })
+      .get("1/5f244111-b80a-421a-b11d-ea59e8156fde/ale", config)
+      .then((res) => {
+        let filter = [];
+        res.data.map((val, key) => {
+          filter.push(val.names);
+        });
+        setEmploye(filter);
+      });
+  };
 
   const theme = createTheme({
     palette: {
@@ -121,39 +130,6 @@ export default function Desktop() {
       },
     },
   });
-
-  const next = () => {
-    let filter = questions.map((item, index) => {
-      let tmp = [];
-      for (let i of item.general) {
-        if (
-          i.name.length !== 0 &&
-          i.frecuency.length !== 0 &&
-          i.agility.length !== 0 &&
-          i.quality.length !== 0 &&
-          i.closeness.length !== 0
-        ) {
-          tmp.push(i);
-        }
-      }
-      return { ...item, general: tmp };
-    });
-    setSuccess(true);
-    setQuestions(filter);
-  };
-
-  const handledelete = (key) => {
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = [...item.general];
-        ymp.splice(ymp.length - 1, 1);
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
 
   const handlePage = (event, value) => {
     let element = paginationRefs.current[value - 1];
@@ -168,7 +144,7 @@ export default function Desktop() {
 
   const checkquestions = () => {
     let fail = false;
-    for (let question of questions) {
+    for (let question of props.questions) {
       if (
         question.general[0].name.length === 0 ||
         question.general[0].frecuency.length === 0 ||
@@ -187,69 +163,12 @@ export default function Desktop() {
     }
   };
 
-  const handledata = (key, row) => (event) => {
-    let prop = event.target.name;
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = item.general.map((val, y) => {
-          if (y === row) {
-            return { ...val, [prop]: event.target.value };
-          } else {
-            return val;
-          }
-        });
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
-
-  const handleselect = (key, index, value) => {
-    let prop = "name";
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = item.general.map((val, y) => {
-          if (y === index) {
-            return { ...val, [prop]: value !== null ? value : "" };
-          } else {
-            return val;
-          }
-        });
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
-
-  const handleadd = (key) => {
-    let tmp = questions.map((item, i) => {
-      if (key === i) {
-        let ymp = [...item.general];
-        ymp.push({
-          name: "",
-          frecuency: "",
-          agility: "",
-          quality: "",
-          closeness: "",
-        });
-        return { ...item, general: ymp };
-      } else {
-        return item;
-      }
-    });
-    setQuestions(tmp);
-  };
-
   useEffect(() => {
-    if (success) {
-      navigate("/connexion", { state: questions });
-    }
+    /*if (employe.length === 0) {
+      getemploye();
+    }*/
     checkquestions();
-  }, [questions]);
+  }, [props.questions]);
 
   return (
     <div className={styles.inner_box}>
@@ -331,7 +250,7 @@ export default function Desktop() {
                 </TableHead>
 
                 <TableBody>
-                  {questions[key1].general.map((row, index) => {
+                  {props.questions[key1].general.map((row, index) => {
                     return (
                       <TableRow key={index}>
                         <TableCell
@@ -342,9 +261,9 @@ export default function Desktop() {
                             id="combo-box-demo"
                             options={employe}
                             clearOnEscape
-                            value={questions[key1].general[index].name}
+                            value={props.questions[key1].general[index].name}
                             onChange={(event, value) => {
-                              handleselect(key1, index, value);
+                              props.handleSelect(key1, index, value);
                             }}
                             isOptionEqualToValue={(option, value) =>
                               option.id === value.id
@@ -378,9 +297,11 @@ export default function Desktop() {
                                     flexWrap: "nowrap",
                                     justifyContent: "space-around",
                                   }}
-                                  onChange={handledata(key1, index)}
+                                  onChange={props.handleData(key1, index)}
                                   value={
-                                    questions[key1].general[index][name[key4]]
+                                    props.questions[key1].general[index][
+                                      name[key4]
+                                    ]
                                   }
                                 >
                                   {val.data.map((val, key5) => {
@@ -414,7 +335,7 @@ export default function Desktop() {
                 </TableBody>
               </Table>
             </TableContainer>
-            {questions[key1].general.length < 10 && (
+            {props.questions[key1].general.length < 10 && (
               <Button
                 variant="outlined"
                 startIcon={<AddIcon />}
@@ -426,13 +347,13 @@ export default function Desktop() {
                   fontWeight: "bold",
                 }}
                 onClick={() => {
-                  handleadd(key1);
+                  props.handleAdd(key1);
                 }}
               >
                 Agregar
               </Button>
             )}
-            {questions[key1].general.length > 4 && (
+            {props.questions[key1].general.length > 4 && (
               <Button
                 variant="contained"
                 startIcon={<DeleteIcon />}
@@ -442,7 +363,7 @@ export default function Desktop() {
                   marginTop: "2rem",
                 }}
                 onClick={() => {
-                  handledelete(key1);
+                  props.handleDelete(key1);
                 }}
               >
                 Delete
@@ -454,7 +375,7 @@ export default function Desktop() {
 
       <div className={styles.move}>
         {checked && (
-          <IconButton aria-label="next" color="info" onClick={next}>
+          <IconButton aria-label="next" color="info" onClick={props.Next}>
             <ArrowCircleRightOutlinedIcon
               style={{ fontSize: 50, color: "black" }}
             />

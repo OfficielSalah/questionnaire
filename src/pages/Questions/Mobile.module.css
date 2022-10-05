@@ -1,6 +1,5 @@
 .inner_box {
-  margin-top: 0.8rem;
-  padding: 0.5rem;
+  width: 100%;
 }
 .card {
   margin: 0.8rem;
@@ -18,7 +17,18 @@
 }
 .option {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #00b0f0;
+}
+.title {
+  margin-right: 20vw;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 0.9rem;
+  width: 4vw;
+}
+
+.text > span:nth-child(2) {
+  font-size: 12px;
 }

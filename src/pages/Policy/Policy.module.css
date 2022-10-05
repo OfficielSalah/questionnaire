@@ -1,18 +1,10 @@
 .screen {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(224, 220, 220);
+  margin-top: 6.5rem;
 }
-.box {
-  margin: 8vh 5vw;
-  background-color: rgb(224, 220, 220);
-  padding-bottom: 1rem;
-}
+
 .inner_box {
   background-color: white;
-  margin: 2rem;
+  margin: 1rem;
   padding: 1rem;
 }
 .inner_box p {

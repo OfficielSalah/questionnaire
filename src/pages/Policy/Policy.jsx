@@ -20,62 +20,60 @@ export default function Policy() {
   };
   return (
     <div className={styles.screen}>
-      <div className={styles.box}>
-        <div className={styles.inner_box}>
-          <h3>
-            <strong style={{ fontWeight: "bold" }}>
-              Política de tratamiento de datos
-            </strong>
-          </h3>
-          <p className={styles.top}>
-            La información capturada por nuestro sistema será utilizada
-            expresamente para uso interno de la compañía y será usada
-            exclusivamente el desarrollo de este ejercicio.
+      <div className={styles.inner_box}>
+        <h3>
+          <strong style={{ fontWeight: "bold" }}>
+            Política de tratamiento de datos
+          </strong>
+        </h3>
+        <p className={styles.top}>
+          La información capturada por nuestro sistema será utilizada
+          expresamente para uso interno de la compañía y será usada
+          exclusivamente el desarrollo de este ejercicio.
+        </p>
+        <p className={styles.top}>
+          Para conocer mas acerca de nuestra política de tratamiento de datos
+          puede hacer clic en el siguiente{" "}
+          <strong
+            style={{
+              color: "blue",
+              fontStyle: "italic",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            enlace
+          </strong>
+        </p>
+        <div className={styles.check}>
+          <Checkbox onChange={handlechange} />
+          <p style={{ color: "grey ", marginLeft: "2rem" }}>
+            ¿Autoriza el manejo y uso de información personal según los descrito
+            en el Política, el Manual Institucional y la Ley 1581 de Protección
+            de Datos Personales?
           </p>
-          <p className={styles.top}>
-            Para conocer mas acerca de nuestra política de tratamiento de datos
-            puede hacer clic en el siguiente{" "}
-            <strong
-              style={{
-                color: "blue",
-                fontStyle: "italic",
-                textDecoration: "underline",
-                cursor: "pointer",
-              }}
-            >
-              enlace
-            </strong>
-          </p>
-          <div className={styles.check}>
-            <Checkbox onChange={handlechange} />
-            <p style={{ color: "grey ", marginLeft: "2rem" }}>
-              ¿Autoriza el manejo y uso de información personal según los
-              descrito en el Política, el Manual Institucional y la Ley 1581 de
-              Protección de Datos Personales?
-            </p>
-          </div>
+        </div>
 
-          <div className={styles.bullets}>
-            <span></span>
-            <span className={styles.active}></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div className={styles.move}>
-            <IconButton aria-label="previous" color="info" onClick={previous}>
-              <ArrowCircleLeftOutlinedIcon
+        <div className={styles.bullets}>
+          <span></span>
+          <span className={styles.active}></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className={styles.move}>
+          <IconButton aria-label="previous" color="info" onClick={previous}>
+            <ArrowCircleLeftOutlinedIcon
+              style={{ fontSize: 50, color: "black" }}
+            />
+          </IconButton>
+
+          {checked && (
+            <IconButton aria-label="next" color="info" onClick={next}>
+              <ArrowCircleRightOutlinedIcon
                 style={{ fontSize: 50, color: "black" }}
               />
             </IconButton>
-
-            {checked && (
-              <IconButton aria-label="next" color="info" onClick={next}>
-                <ArrowCircleRightOutlinedIcon
-                  style={{ fontSize: 50, color: "black" }}
-                />
-              </IconButton>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </div>

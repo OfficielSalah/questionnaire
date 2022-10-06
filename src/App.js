@@ -13,7 +13,7 @@ export default function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/:guid" element={<Home />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/questions" element={<Question />} />
         <Route path="/connexion" element={<Connexion />} />

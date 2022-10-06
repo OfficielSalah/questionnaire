@@ -1,14 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const config = {
+  headers: { "Content-type": "application/json" },
+};
 
 export default function Home() {
+  const [data, setData] = useState("");
+  const [success, setSuccess] = useState(false);
+  let { guid } = useParams();
   const navigate = useNavigate();
+  const verify = async () => {
+    try {
+      await axios
+        .create({
+          baseURL:
+            "https://dynamicliveconversationapi.azurewebsites.net/api/ONasSurvey/EmpleadosSurveyOnas/",
+        })
+        .get(`/${guid}`, config)
+        .then((res) => {
+          console.log(res);
+          setData(res.data);
+          setSuccess(true);
+        });
+    } catch (error) {
+      console.log(error);
+      navigate("/thanks");
+    }
+  };
+
   const click = () => {
     navigate("/policy");
   };
+
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem("companyInfo", JSON.stringify(data));
+    } else {
+      verify();
+    }
+  }, [success]);
   return (
     <div className={styles.screen}>
       <div className={styles.inner_box}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Questions.module.css";
-import Mobile from "./Mobile";
-import Desktop from "./Desktop";
+import Mobile from "../../components/Mobile/Mobile";
+import Desktop from "../../components/Desktop/Desktop";
 import { useNavigate } from "react-router-dom";
 
 const data = [
@@ -41,6 +41,10 @@ const breakPoint = 880;
 
 export default function Questions() {
   const navigate = useNavigate();
+  const companyInfo = localStorage.getItem("companyInfo");
+  if (!companyInfo) {
+    navigate("/thanks");
+  }
   const [width, setWidth] = useState(window.innerWidth);
   const [success, setSuccess] = useState(false);
   const [questions, setQuestions] = useState(

@@ -37,6 +37,10 @@ const name = ["value", "frecuency"];
 const arr = [1, 2, 3, 4];
 export default function Connexion() {
   const navigate = useNavigate();
+  const companyInfo = localStorage.getItem("companyInfo");
+  if (!companyInfo) {
+    navigate("/thanks");
+  }
   const { state } = useLocation();
   const [checked, setChecked] = useState(false);
   const [connexion, setConnexion] = useState({

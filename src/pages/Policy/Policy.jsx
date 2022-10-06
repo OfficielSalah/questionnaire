@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function Policy() {
   const navigate = useNavigate();
+  const companyInfo = localStorage.getItem("companyInfo");
+  if (!companyInfo) {
+    navigate("/thanks");
+  }
   const [checked, setChecked] = useState(false);
   const next = () => {
     navigate("/questions");

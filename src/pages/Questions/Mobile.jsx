@@ -112,11 +112,13 @@ export default function Mobile(props) {
         baseURL:
           "https://dynamicliveconversationapi.azurewebsites.net/api/ONasSurvey/EmpleadosSurveyOnas/",
       })
-      .get("1/5f244111-b80a-421a-b11d-ea59e8156fde/ale", config)
+      .get("1/5f244111-b80a-421a-b11d-ea59e8156fde", config)
       .then((res) => {
         let filter = [];
         res.data.map((val, key) => {
-          filter.push(val.names);
+          if (!filter.includes(val.names)) {
+            filter.push(val.names);
+          }
         });
         setEmploye(filter);
       });
@@ -157,9 +159,9 @@ export default function Mobile(props) {
   };
 
   useEffect(() => {
-    /*if (employe.length === 0) {
+    if (employe.length === 0) {
       getemploye();
-    }*/
+    }
   }, [props.questions]);
 
   return (

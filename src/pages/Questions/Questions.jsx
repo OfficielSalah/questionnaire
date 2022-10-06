@@ -164,6 +164,9 @@ export default function Questions() {
     }
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
+    return (_) => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
   }, [questions]);
 
   return (

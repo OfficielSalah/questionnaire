@@ -1,11 +1,16 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Logo from "../assets/logo.png";
 
-export default function MenuAppBar() {
+export default function Navbar(props) {
+  let url = props?.logo?.split("/");
+  let param = "";
+  if (url) {
+    param = url[url.length - 1];
+  }
+
   return (
     <AppBar style={{ backgroundColor: "black" }}>
       <Toolbar>
@@ -25,7 +30,12 @@ export default function MenuAppBar() {
             backgroundColor: "white",
           }}
           alt="Your logo."
-          src={Logo}
+          src={
+            param
+              ? "https://dynamicliveconversationapi.azurewebsites.net/StaticFiles/Images/CompanyLogo/" +
+                param
+              : "https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png?20171228163613"
+          }
         />
       </Toolbar>
     </AppBar>

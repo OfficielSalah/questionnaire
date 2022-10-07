@@ -5,10 +5,11 @@ import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOu
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import Checkbox from "@mui/material/Checkbox";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
 export default function Policy() {
   const navigate = useNavigate();
-  const companyInfo = localStorage.getItem("companyInfo");
+  const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
   if (!companyInfo) {
     navigate("/thanks");
   }
@@ -24,6 +25,7 @@ export default function Policy() {
   };
   return (
     <div className={styles.screen}>
+      <Navbar logo={companyInfo.logo} />
       <div className={styles.inner_box}>
         <h3>
           <strong style={{ fontWeight: "bold" }}>

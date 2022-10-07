@@ -3,6 +3,7 @@ import styles from "./Questions.module.css";
 import Mobile from "../../components/Mobile/Mobile";
 import Desktop from "../../components/Desktop/Desktop";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
 const data = [
   {
@@ -41,7 +42,7 @@ const breakPoint = 880;
 
 export default function Questions() {
   const navigate = useNavigate();
-  const companyInfo = localStorage.getItem("companyInfo");
+  const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
   if (!companyInfo) {
     navigate("/thanks");
   }
@@ -175,6 +176,7 @@ export default function Questions() {
 
   return (
     <div className={styles.screen}>
+      <Navbar logo={companyInfo.logo} />
       {width > breakPoint ? (
         <Desktop
           questions={questions}

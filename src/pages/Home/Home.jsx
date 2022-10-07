@@ -2,33 +2,40 @@ import React, { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import queryString from "query-string";
+import Navbar from "../../components/Navbar";
 
 const config = {
   headers: { "Content-type": "application/json" },
 };
 
 export default function Home() {
+  const navigate = useNavigate();
   const [data, setData] = useState("");
   const [success, setSuccess] = useState(false);
-  let { guid } = useParams();
-  const navigate = useNavigate();
+  const location = useLocation();
+  let { code } = queryString.parse(location.search);
+  if (!code) {
+    navigate("/thanks");
+  }
+  let personId = code?.split("/")[0];
+  let versionId = code?.split("/")[1];
+
   const verify = async () => {
     try {
       await axios
         .create({
           baseURL:
-            "https://dynamicliveconversationapi.azurewebsites.net/api/ONasSurvey/EmpleadosSurveyOnas/",
+            "https://dynamicliveconversationapi.azurewebsites.net/api/OnasSurvey/",
         })
-        .get(`/${guid}`, config)
+        .get(`${personId}/${versionId}`, config)
         .then((res) => {
-          console.log(res);
-          setData(res.data);
+          setData(res.data[0]);
           setSuccess(true);
         });
     } catch (error) {
-      console.log(error);
       navigate("/thanks");
     }
   };
@@ -46,16 +53,17 @@ export default function Home() {
   }, [success]);
   return (
     <div className={styles.screen}>
+      <Navbar logo={data?.logo} />
       <div className={styles.inner_box}>
         <h3>
-          Hola <strong className={styles.red}>nombre_persona</strong>
+          Hola <strong className={styles.red}>{data?.nombrePersona}</strong>
         </h3>
         <p>
           Bienvenido a nuestra herramienta de recolección de datos para el
           desarrollo del análisis de redes organizacionales que
           <strong className={styles.red + " " + styles.top}>
             {" "}
-            nombre_empresa{" "}
+            {data?.empresa}{" "}
           </strong>
           esta desarrollando.
         </p>

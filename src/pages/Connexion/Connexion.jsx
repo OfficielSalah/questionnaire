@@ -20,6 +20,7 @@ import {
   Radio,
   IconButton,
 } from "@mui/material";
+import Navbar from "../../components/Navbar";
 
 const info = [
   { title: "Valor", data: ["Valor Agregado", "Bajo Valor Agregado"] },
@@ -37,7 +38,7 @@ const name = ["value", "frecuency"];
 const arr = [1, 2, 3, 4];
 export default function Connexion() {
   const navigate = useNavigate();
-  const companyInfo = localStorage.getItem("companyInfo");
+  const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
   if (!companyInfo) {
     navigate("/thanks");
   }
@@ -122,6 +123,7 @@ export default function Connexion() {
 
   return (
     <div className={styles.screen}>
+      <Navbar logo={companyInfo.logo} />
       <div className={styles.inner_box}>
         <h3>Valor Agregado en Conexiones :</h3>
         <p className={styles.top}>

@@ -32,6 +32,10 @@ export default function Home() {
         })
         .get(`${personId}/${versionId}`, config)
         .then((res) => {
+          localStorage.setItem(
+            "urlInfo",
+            JSON.stringify({ personId: personId, versionId: versionId })
+          );
           setData(res.data[0]);
           setSuccess(true);
         });

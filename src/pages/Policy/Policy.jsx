@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Policy.module.css";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
@@ -10,9 +10,7 @@ import Navbar from "../../components/Navbar";
 export default function Policy() {
   const navigate = useNavigate();
   const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
-  if (!companyInfo) {
-    navigate("/thanks");
-  }
+
   const [checked, setChecked] = useState(false);
   const next = () => {
     navigate("/questions");
@@ -23,9 +21,15 @@ export default function Policy() {
   const handlechange = () => {
     setChecked(!checked);
   };
+
+  useEffect(() => {
+    if (!companyInfo) {
+      navigate("/thanks");
+    }
+  }, []);
   return (
     <div className={styles.screen}>
-      <Navbar logo={companyInfo.logo} />
+      <Navbar logo={companyInfo?.logo} />
       <div className={styles.inner_box}>
         <h3>
           <strong style={{ fontWeight: "bold" }}>

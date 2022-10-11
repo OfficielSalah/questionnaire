@@ -6,7 +6,7 @@ export default function Thanks() {
   const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
   return (
     <div className={styles.screen}>
-      <Navbar logo={companyInfo.logo} />
+      <Navbar logo={companyInfo?.logo} />
       <div className={styles.inner_box}>
         <div className={styles.top}>
           <h1 style={{ textAlign: "center" }}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-//import axios from "axios";
+import axios from "axios";
 import styles from "./Connexion.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import InfoIcon from "@mui/icons-material/Info";
@@ -36,16 +36,16 @@ const info = [
 ];
 const name = ["value", "frecuency"];
 const arr = [1, 2, 3, 4];
+
 export default function Connexion() {
   const navigate = useNavigate();
   const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
-  if (!companyInfo) {
-    navigate("/thanks");
-  }
+
+  const urlInfo = JSON.parse(localStorage.getItem("urlInfo"));
   const { state } = useLocation();
   const [checked, setChecked] = useState(false);
   const [connexion, setConnexion] = useState({
-    questionId: "3fa85f64-5717-4963f66afa6",
+    questionId: "aca9be07-0918-4397-bda6-17c08722ebf6",
     options: Array(4).fill({
       conexionType: "",
       value: "",
@@ -65,11 +65,11 @@ export default function Connexion() {
       }
     }
     let data = {
-      personId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      companyId: 0,
-      surveyId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      personId: urlInfo.personId,
+      companyId: companyInfo.idcompany,
+      surveyId: urlInfo.versionId,
       questions: state,
-      connexion: { ...connexion, options: tmp },
+      conexion: { ...connexion, options: tmp },
     };
     return data;
   };
@@ -109,15 +109,24 @@ export default function Connexion() {
     e.preventDefault();
     let data = makeData();
     try {
-      //const response = await axios.post("/api/test", { data: data });
+      const response = await axios
+        .create({
+          baseURL:
+            "https://dynamicliveconversationapi.azurewebsites.net/api/OnasSurvey",
+        })
+        .post("/OnasResponse", { data });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
     console.log(JSON.stringify(data, null, 4));
-    navigate("/thanks");
+    //navigate("/thanks");
   };
 
   useEffect(() => {
+    if (!companyInfo) {
+      navigate("/thanks");
+    }
     checkconnexion();
   }, [connexion]);
 

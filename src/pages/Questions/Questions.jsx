@@ -4,6 +4,7 @@ import Mobile from "../../components/Mobile/Mobile";
 import Desktop from "../../components/Desktop/Desktop";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import * as uuid from "uuid";
 
 const data = [
   {
@@ -43,9 +44,6 @@ const breakPoint = 880;
 export default function Questions() {
   const navigate = useNavigate();
   const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
-  if (!companyInfo) {
-    navigate("/thanks");
-  }
   const [width, setWidth] = useState(window.innerWidth);
   const [success, setSuccess] = useState(false);
   const [questions, setQuestions] = useState(
@@ -157,13 +155,16 @@ export default function Questions() {
           tmp.push(i);
         }
       }
-      return { ...item, general: tmp };
+      return { ...item, general: tmp, questionId: uuid.v4() };
     });
     setSuccess(true);
     setQuestions(filter);
   };
 
   useEffect(() => {
+    if (!companyInfo) {
+      navigate("/thanks");
+    }
     if (success) {
       navigate("/connexion", { state: questions });
     }

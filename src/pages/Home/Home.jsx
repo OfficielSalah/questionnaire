@@ -36,7 +36,7 @@ export default function Home() {
             "urlInfo",
             JSON.stringify({ personId: personId, versionId: versionId })
           );
-          setData(res.data[0]);
+          setData(res.data);
           setSuccess(true);
         });
     } catch (error) {

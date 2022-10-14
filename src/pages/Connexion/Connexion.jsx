@@ -45,7 +45,7 @@ export default function Connexion() {
   const { state } = useLocation();
   const [checked, setChecked] = useState(false);
   const [connexion, setConnexion] = useState({
-    questionId: "aca9be07-0918-4397-bda6-17c08722ebf6",
+    questionId: 7,
     options: Array(4).fill({
       conexionType: "",
       value: "",
@@ -114,13 +114,18 @@ export default function Connexion() {
           baseURL:
             "https://dynamicliveconversationapi.azurewebsites.net/api/OnasSurvey",
         })
-        .post("/OnasResponse", { data });
+        .post("/OnasResponse", {
+          personId: data.personId,
+          companyId: data.companyId,
+          surveyId: data.surveyId,
+          questions: data.questions,
+          conexion: data.conexion,
+        });
       console.log(response);
+      navigate("/thanks");
     } catch (error) {
       console.log(error);
     }
-    console.log(JSON.stringify(data, null, 4));
-    //navigate("/thanks");
   };
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import Mobile from "../../components/Mobile/Mobile";
 import Desktop from "../../components/Desktop/Desktop";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import * as uuid from "uuid";
+//import * as uuid from "uuid";
 
 const data = [
   {
@@ -155,7 +155,9 @@ export default function Questions() {
           tmp.push(i);
         }
       }
-      return { ...item, general: tmp, questionId: uuid.v4() };
+      //, questionId: 1234567
+      //uuid.v4()
+      return { ...item, general: tmp, questionId: index + 1 };
     });
     setSuccess(true);
     setQuestions(filter);

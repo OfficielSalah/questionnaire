@@ -40,7 +40,6 @@ const arr = [1, 2, 3, 4];
 export default function Connexion() {
   const navigate = useNavigate();
   const companyInfo = JSON.parse(localStorage.getItem("companyInfo"));
-
   const urlInfo = JSON.parse(localStorage.getItem("urlInfo"));
   const { state } = useLocation();
   const [checked, setChecked] = useState(false);
